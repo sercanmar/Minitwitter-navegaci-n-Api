@@ -3,18 +3,22 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 import Avatar from './Avatar';
 import PostActionButtons from './PostActionButtons';
+import { usePostActions } from '../../hooks/usePostActions';
 
 interface Props {
     post: Post;
 }
 
 const PostCard = ({ post }: Props) => {
-
+    const { likePost } = usePostActions();
     return (
         <View className="flex-row px-4 py-3 border-b border-gray-200 bg-quaternary">
             {/* Avatar a la izquierda */}
             <View className="mr-3">
-                <Avatar userAvatar={post.userAvatar} userName={post.userName} />
+                <Avatar 
+                    userAvatar={{ uri: post.userAvatar }} 
+                    userName={post.userName} 
+                />
             </View>
 
             {/* Contenido a la derecha */}
@@ -45,6 +49,7 @@ const PostCard = ({ post }: Props) => {
                     likes={post.likes}
                     retweets={post.retweets}
                     replies={post.replies}
+                    Like={() => likePost(post.id)}
                 />
             </View>
         </View>

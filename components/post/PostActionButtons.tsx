@@ -7,6 +7,7 @@ interface Props {
     likes: number;
     retweets: number;
     replies: number;
+    Like: () => void;
 }
 
 interface ActionButtonProps extends PressableProps {
@@ -25,7 +26,7 @@ const ActionButton = ({ iconName, value, ...pressableProps }: ActionButtonProps)
     );
 };
 
-const PostActionButtons = ({ likes, retweets, replies }: Props) => {
+const PostActionButtons = ({ likes, retweets, replies, Like }: Props) => { 
 
     const { nLikes, liked, setLikesCount, toggleLike } = useLike();
 
@@ -38,8 +39,12 @@ const PostActionButtons = ({ likes, retweets, replies }: Props) => {
             <ActionButton
                 iconName={liked ? 'heart' : 'heart-outline'}
                 value={nLikes}
-                onPress={() => toggleLike()}
+                onPress={() => {
+                    toggleLike();
+                    Like();     
+                }}
             />
+        
             <ActionButton
                 iconName="repeat-outline"
                 value={retweets}
