@@ -10,4 +10,5 @@ export interface Post {
     retweets: number;
     replies: number;
     createdAt: string; 
+    hashtags: string[];
 }

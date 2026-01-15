@@ -6,6 +6,10 @@ export interface TwitterPostUser {
     bio: string;
     avatarUrl: string;
 }
+export interface TwitterPostHashtags{
+    id: number;
+    tag: string;
+}
 
 export interface TwitterPostResponse {
     id: number;
@@ -19,5 +23,5 @@ export interface TwitterPostResponse {
     user: TwitterPostUser;
     inReplyTo: string | null;
     repostOf: string | null;
-    hashtags: string[];
+    hashtags: TwitterPostHashtags[];
 }

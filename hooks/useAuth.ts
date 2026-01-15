@@ -25,7 +25,7 @@ export const useAuth = () => {
 
         setError('');
 
-        router.replace('/(stack)/feed');
+        router.replace('/feed');
     }
 
     return {

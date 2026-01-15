@@ -15,9 +15,9 @@ const PostCard = ({ post }: Props) => {
         <View className="flex-row px-4 py-3 border-b border-gray-200 bg-quaternary">
             {/* Avatar a la izquierda */}
             <View className="mr-3">
-                <Avatar 
-                    userAvatar={{ uri: post.userAvatar }} 
-                    userName={post.userName} 
+                <Avatar
+                    userAvatar={{ uri: post.userAvatar }}
+                    userName={post.userName}
                 />
             </View>
 
@@ -43,13 +43,28 @@ const PostCard = ({ post }: Props) => {
                         {post.content}
                     </Text>
                 ) : null}
+                {post.hashtags && post.hashtags.length > 0 && (
+                    <View className="flex-row flex-wrap mt-2 gap-2">
+                        {post.hashtags.map((tag, index) => (
+                            <Text 
+                                key={index} 
+                                className="text-blue-500 font-chirp-regular" // Color azul típico
+                            >
+                                #{tag}
+                            </Text>
+                        ))}
+                    </View>
+                )}
+
+
+
 
                 {/* Botonera de acciones */}
                 <PostActionButtons
                     likes={post.likes}
                     retweets={post.retweets}
                     replies={post.replies}
-                    Like={() => likePost(post.id)}
+                    onLike={() => likePost(post.id)}
                 />
             </View>
         </View>
