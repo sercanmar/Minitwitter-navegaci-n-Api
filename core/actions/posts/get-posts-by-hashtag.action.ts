@@ -3,11 +3,11 @@ import { TwitterPostResponse } from "@/infrastructure/interfaces/twitter-respons
 import { PostMapper } from "@/infrastructure/mappers/post.mapper";
 import { Post } from "@/types/post";
 
-export const getPostByIdAction = async (id: number): Promise<Post> => {
+export const getPostsByHashtagAction = async (tag: string): Promise<Post[]> => {
     try {
-        const { data } = await twitterApi.get<TwitterPostResponse>(`/posts/${id}`);
-        return PostMapper.fromApiToPost(data);
+        const { data } = await twitterApi.get<TwitterPostResponse[]>(`/posts/tag/${tag}`);
+        return data.map(PostMapper.fromApiToPost);
     } catch (error) {
-        throw "Error al cargar el post";
+        throw "error al cargar posts del hashtag";
     }
 };

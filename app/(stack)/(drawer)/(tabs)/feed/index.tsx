@@ -1,11 +1,13 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View, Pressable } from 'react-native';
+import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import PostCard from '@/components/post/PostCard'; 
-import { usePosts } from '@/presentation/hooks/usePosts'; 
+import PostCard from '@/components/post/PostCard';
+import { usePosts } from '@/presentation/hooks/usePosts';
 
 const FeedScreen = () => {
     const { feedQuery } = usePosts();
+    const router = useRouter();
 
     if (feedQuery.isLoading) {
         return (
@@ -28,7 +30,11 @@ const FeedScreen = () => {
             <FlatList
                 data={feedQuery.data ?? []}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => <PostCard post={item} />} 
+                renderItem={({ item }) => (
+                   
+                        <PostCard post={item} />
+                    
+                )}
             />
         </SafeAreaView>
     );
