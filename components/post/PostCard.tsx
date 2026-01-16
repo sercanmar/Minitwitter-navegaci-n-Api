@@ -4,6 +4,8 @@ import { Image, Text, View } from 'react-native';
 import Avatar from './Avatar';
 import PostActionButtons from './PostActionButtons';
 import { usePostActions } from '../../hooks/usePostActions';
+import { Pressable } from 'react-native';
+import { useRouter } from 'expo-router';
 
 interface Props {
     post: Post;
@@ -11,6 +13,7 @@ interface Props {
 
 const PostCard = ({ post }: Props) => {
     const { likePost } = usePostActions();
+    const router = useRouter();
     return (
         <View className="flex-row px-4 py-3 border-b border-gray-200 bg-quaternary">
             {/* Avatar a la izquierda */}
@@ -45,18 +48,19 @@ const PostCard = ({ post }: Props) => {
                 ) : null}
                 {post.hashtags && post.hashtags.length > 0 && (
                     <View className="flex-row flex-wrap mt-2 gap-2">
-                        {post.hashtags.map((tag, index) => (
-                            <Text 
-                                key={index} 
-                                className="text-blue-500 font-chirp-regular" // Color azul típico
+                        {post.hashtags.map((hashtag, index) => (
+                            <Pressable
+                                key={index}
+
+                                onPress={() => router.push(`/feed/hashtag/${hashtag.id}?name=${hashtag.tag}`)}
                             >
-                                #{tag}
-                            </Text>
+                                <Text className="text-blue-500 font-chirp-regular">
+                                    #{hashtag.tag}
+                                </Text>
+                            </Pressable>
                         ))}
                     </View>
                 )}
-
-
 
 
                 {/* Botonera de acciones */}

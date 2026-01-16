@@ -10,5 +10,5 @@ export interface Post {
     retweets: number;
     replies: number;
     createdAt: string; 
-    hashtags: string[];
+    hashtags: { id: number, tag: string }[];
 }

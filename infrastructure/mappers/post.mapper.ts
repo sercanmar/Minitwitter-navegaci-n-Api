@@ -13,7 +13,6 @@ export class PostMapper {
             retweets: apiPost.retweetsCount,
             replies: apiPost.repliesCount,
             createdAt: apiPost.createdAt,
-            hashtags: apiPost.hashtags.map(h => h.tag)
-        };
+            hashtags: apiPost.hashtags        };
     }
 }
