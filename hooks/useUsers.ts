@@ -1,28 +1,30 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getUsersAction } from "@/core/actions/user/get-users.action";
 import { followUserAction } from "@/core/actions/user/follow-user.action";
 import { Alert } from "react-native";
 
+const MY_USER_ID = 42;
+
 export const useUsers = () => {
-    const queryClient = useQueryClient();
+    
     const usersQuery = useQuery({
         queryKey: ['users', 'all'],
         queryFn: getUsersAction,
     });
 
-
-    const followMutation = useMutation({
-        mutationFn: followUserAction,
-        onSuccess: () => {
-            Alert.alert("Éxito", "Ahora sigues a este usuario");
-        },
-        onError: () => {
-            Alert.alert("Error", "No se pudo realizar la acción");
+    const followUser = async (targetUserId: number) => {
+        try {
+            await followUserAction(targetUserId, MY_USER_ID);
+            
+            Alert.alert("bien");
+            
+        } catch (error) {
+            Alert.alert("error");
         }
-    });
+    };
 
     return {
         usersQuery,
-        followUser: followMutation.mutate, 
+        followUser,
     };
 };
